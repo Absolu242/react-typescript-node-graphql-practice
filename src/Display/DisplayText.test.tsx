@@ -1,8 +1,10 @@
-import { render, fireEvent, cleanup, waitFor } from "@testing-library/react"
+import React from "react"
+import { render, fireEvent, cleanup, wait } from "@testing-library/react"
 import DisplayText from "./DisplayText"
 import "@testing-library/jest-dom/extend-expect"
-
+jest.mock("./UserTodos")
 afterEach(cleanup)
+
 describe("Test DisplayText", () => {
   const userFullName = "John Tester"
   const getUserFullnameMock = (
@@ -18,6 +20,7 @@ describe("Test DisplayText", () => {
     )
     return [promise, getUserFullname]
   }
+
   it("renders without crashing", () => {
     const username = "testuser"
     const [promise, getUserFullname] = getUserFullnameMock(username)

@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react"
+import UserTodos from "../UserTodos/UserTodos"
 
 interface DisplayTextProps {
   getUserFullname: (username: string) => Promise<string>
@@ -6,6 +7,9 @@ interface DisplayTextProps {
 const DisplayText: FC<DisplayTextProps> = ({ getUserFullname }) => {
   const [txt, setTxt] = useState("")
   const [msg, setMsg] = useState("")
+
+  const [todoControl, setTodoControl] = useState<ReturnType<typeof UserTodos>>()
+
   const onChangeTxt = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTxt(e.target.value)
   }
@@ -14,30 +18,27 @@ const DisplayText: FC<DisplayTextProps> = ({ getUserFullname }) => {
   ) => {
     e.preventDefault()
     setMsg(`Welcome to React testing, ${await getUserFullname(txt)}`)
+    setTodoControl(<UserTodos username={txt} />)
   }
+
   return (
-    <div>
-      <form>
-        <div>
-          <label>Enter your name</label>
-        </div>
-        <div>
-          <input
-            data-testid='user-input'
-            type='text'
-            value={txt}
-            onChange={onChangeTxt}
-          />
-        </div>
+    <form>
+      <div>
+        <label>Enter your name</label>
+      </div>
+      <div>
+        <input data-testid='user-input' value={txt} onChange={onChangeTxt} />
+      </div>
+      <div>
         <button data-testid='input-submit' onClick={onClickShowMsg}>
           Show Message
-        </button>
-        <div>
-          <label data-testid='final-msg'>{msg}</label>
-        </div>
-        <div>this is just a test entry</div>
-      </form>
-    </div>
+        </button>{" "}
+      </div>
+      <div>
+        <label data-testid='final-msg'>{msg}</label>{" "}
+      </div>
+      {todoControl}
+    </form>
   )
 }
 
