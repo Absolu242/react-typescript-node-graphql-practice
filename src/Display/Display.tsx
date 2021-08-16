@@ -1,9 +1,8 @@
 import React, { useState } from "react"
 
-export default function Display() {
+const DisplayText = () => {
   const [txt, setTxt] = useState("")
   const [msg, setMsg] = useState("")
-
   const onChangeTxt = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTxt(e.target.value)
   }
@@ -12,9 +11,8 @@ export default function Display() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault()
-    setMsg(`welcome to react testing ${txt}`)
+    setMsg(`Welcome to React testing ${txt}`)
   }
-
   return (
     <div>
       <form>
@@ -35,7 +33,10 @@ export default function Display() {
         <div>
           <label data-testid='final-msg'>{msg}</label>
         </div>
+        <div>this is just a test entry</div>
       </form>
     </div>
   )
 }
+
+export default DisplayText
